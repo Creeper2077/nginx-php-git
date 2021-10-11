@@ -2,12 +2,13 @@
 
 root="/home/html"
 
-if [$1 != "none"]
+if [[ $1 != "none" ]]
+then
         #clone the repo
         printf "Start clone from Git repo...\n"
         printf "GitURL: %s\n" $1
 
-        if [-n "`ls -A {$root}`"]
+        if [ -n "`ls -A {$root}`" ]
         then
                 echo "WARING: {$root} is not empty!"
                 echo -e "Clean up the web dir...\c"
@@ -24,14 +25,14 @@ fi
 #Configure automatic updates
 case "$2" in
 "timing") #Create timed script
-        echo -e "Create /etc/profile.d/crontab.sh...\c"
+        echo -e "Update /etc/crontab...\c"
         timing=echo ${@:3}
-        echo -e "{$timing} /home/script/update.sh {$root}\c" > /etc/profile.d/crontab.sh
+        echo "{$timing} /home/script/update.sh {$root}" > /etc/crontab
         chmod +x /etc/profile.d/crontab.sh
         echo "Done."
         ;;
 "webhook") #Create webhook
-        if [$3]
+        if [[ $3 ]]
         then
                 webhook=$3
         else
@@ -50,3 +51,11 @@ esac
 echo -e "Set permissions...\c"
 chmod -R 755 $root
 echo "Done"
+
+#Quit
+echo "All Done."
+
+#start nginx
+echo "Starting nginx..."
+service nginx start
+
