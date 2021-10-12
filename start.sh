@@ -1,6 +1,6 @@
 #!/bin/bash
 
-root="/home/html"
+root="/var/www/html"
 
 if [[ $1 != "none" ]]
 then
@@ -30,6 +30,7 @@ case "$2" in
         echo "${timing} /home/script/update.sh ${root}" > /etc/crontab
         chmod +x /etc/profile.d/crontab.sh
         echo "Done."
+        service cron restart
         ;;
 "webhook") #Create webhook
         if [[ $3 ]]
@@ -39,6 +40,7 @@ case "$2" in
                 webhook=$(cat /proc/sys/kernel/random/uuid)
         fi
         printf "Create %s/.webhook/%s.php..." $root $webhook
+        mkdir ${root}/.webhook
         echo -e "<?php \n exec(\"/home/script/update.sh ${root}\"); \n ?> \c" > ${root}/.webhook/${webhook}.php
         echo "Done."
         printf "Add this webhook to you Git service provider:yourdomain.com/.webhook/%s.php\n" $webhook
@@ -50,12 +52,16 @@ esac
 #Set permissions
 echo -e "Set permissions...\c"
 chmod -R 755 $root
-echo "Done"
+echo "Done."
 
 #Quit
 echo "All Done."
 
+#start PHP
+echo "Starting PHP..."
+service php7.4-fpm start
+echo "Done."
+
 #start nginx
 echo "Starting nginx..."
 service nginx start
-
