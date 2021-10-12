@@ -28,9 +28,8 @@ case "$2" in
         echo -e "Update /etc/crontab...\c"
         timing=echo ${@:3}
         echo "${timing} /home/script/update.sh ${root}" > /etc/crontab
-        chmod +x /etc/profile.d/crontab.sh
+        service cron start
         echo "Done."
-        service cron restart
         ;;
 "webhook") #Create webhook
         if [[ $3 ]]
@@ -50,18 +49,18 @@ case "$2" in
 esac
 
 #Set permissions
-echo -e "Set permissions...\c"
+echo "Set permissions...\c"
 chmod -R 755 $root
-echo "Done."
+echo "Done.\n"
 
 #Quit
 echo "All Done."
 
 #start PHP
-echo "Starting PHP..."
+echo "Starting PHP-fpm..."
 service php7.4-fpm start
-echo "Done."
+echo "Done.\n"
 
-#start nginx
+#Start nginx
 echo "Starting nginx..."
 service nginx start
