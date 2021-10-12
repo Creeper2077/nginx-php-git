@@ -2,7 +2,7 @@ FROM ubuntu:20.04
 EXPOSE "8080"
 RUN echo -e "Install Nginx&PHP&cron...\n" \
     && apt update \
-    && apt install nginx php7.4 php7.4-fpm php7.4-cgi cron git -y \
+    && apt install nginx php7.4 php7.4-fpm php7.4-cgi cron -y \
     && echo "Done.\n" \
     && echo "Add user www...\n" \
     && groupadd -r www \
