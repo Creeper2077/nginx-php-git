@@ -26,5 +26,5 @@ ADD file.tar /
 RUN echo "Setting permission..."\
     && chmod -R +x /home/script \
     && chmod -R 755 /var/www/html \
-    && echo "Done."
+    && echo "Done.\n"
 CMD ["service","php7.4-fpm","start"]
