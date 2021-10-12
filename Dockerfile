@@ -19,12 +19,11 @@ RUN echo -e "Install Nginx&PHP&cron...\n" \
     && rm /etc/php/7.4/fpm/pool.d/www.conf \
     && echo "Done.\n" \
     && echo "Clean Cache..." \
-    && apt clean \
-    && apt autoremove \
+    && apt clean -qq \
+    && apt autoremove -qq \
     && echo "Done."
 ADD file.tar /
 RUN echo "Setting permission..."\
     && chmod -R +x /home/script \
     && chmod -R 755 /var/www/html \
     && echo "Done.\n"
-CMD ["service","php7.4-fpm","start"]
