@@ -8,9 +8,9 @@ then
         printf "Start clone from Git repo...\n"
         printf "GitURL: %s\n" $1
 
-        if [ -n "`ls -A {$root}`" ]
+        if [ -n "`ls -A ${root}`" ]
         then
-                echo "WARING: {$root} is not empty!"
+                echo "WARING: ${root} is not empty!"
                 echo -e "Clean up the web dir...\c"
                 rm -rf $root
                 mkdir $root
@@ -27,7 +27,7 @@ case "$2" in
 "timing") #Create timed script
         echo -e "Update /etc/crontab...\c"
         timing=echo ${@:3}
-        echo "{$timing} /home/script/update.sh {$root}" > /etc/crontab
+        echo "${timing} /home/script/update.sh ${root}" > /etc/crontab
         chmod +x /etc/profile.d/crontab.sh
         echo "Done."
         ;;
@@ -39,7 +39,7 @@ case "$2" in
                 webhook=$(cat /proc/sys/kernel/random/uuid)
         fi
         printf "Create %s/.webhook/%s.php..." $root $webhook
-        echo -e "<?php \n exec(\"/home/script/update.sh {$root}\"); \n ?> \c" > {$root}/.webhook/{$webhook}.php
+        echo -e "<?php \n exec(\"/home/script/update.sh ${root}\"); \n ?> \c" > ${root}/.webhook/${webhook}.php
         echo "Done."
         printf "Add this webhook to you Git service provider:yourdomain.com/.webhook/%s.php\n" $webhook
         ;;
