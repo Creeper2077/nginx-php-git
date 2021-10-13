@@ -1,13 +1,16 @@
 FROM ubuntu:20.04
-RUN echo -e "Install Nginx&PHP&cron...\n" \
+RUN echo "Install CA Certificates..." \
+    && apt install ca-certificates -y -qq --no-install-recommends \
+    && echo "Done.\n" \
+    && echo "Install Nginx&PHP&cron..." \
     && apt update -qq \
     && apt upgrade -y -qq \
     && apt install nginx php7.4 php7.4-fpm php7.4-cgi php7.4-json php7.4-curl cron -y -qq --no-install-recommends \
     && echo "Done.\n" \
     && echo "Install Git.." \
-    && apt install git -y --no-install-recommends \
+    && apt install git -y -qq --no-install-recommends \
     && echo "Done\n" \
-    && echo "Add user www...\n" \
+    && echo "Add user www..." \
     && groupadd -r www \
     && useradd -r -g www www \
     && echo "\n www ALL=(ALL)  NOPASSWORD:ALL" >> /etc/sudoers \
@@ -23,7 +26,7 @@ RUN echo -e "Install Nginx&PHP&cron...\n" \
     && echo "Clean Cache..." \
     && apt clean -qq \
     && apt autoremove -qq \
-    && echo "Done."
+    && echo "Done.\n"
 ADD file.tar /
 RUN echo "Setting permission..."\
     && chmod -R +x /home/script \

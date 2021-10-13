@@ -11,7 +11,7 @@ then
         if [ -n "`ls -A ${root}`" ]
         then
                 echo "WARING: ${root} is not empty!"
-                echo -e "Clean up the web dir..."
+                echo "Clean up the web dir..."
                 rm -rf $root
                 mkdir $root
                 echo "Done."
@@ -21,7 +21,7 @@ then
         #Configure automatic updates
         case "$2" in
         "timing") #Create timed script
-                echo -e "Update /etc/crontab..."
+                echo "Update /etc/crontab..."
                 timing=echo ${@:3}
                 echo "${timing} /home/script/update.sh ${root}" > /etc/crontab
                 echo "Done."
@@ -35,7 +35,7 @@ then
                 fi
                 printf "Create %s/.webhook/%s.php..." $root $webhook
                 mkdir ${root}/.webhook
-                echo -e "<?php \n exec(\"/home/script/update.sh ${root}\"); \n ?> \c" > ${root}/.webhook/${webhook}.php
+                echo "<?php \n exec(\"/home/script/update.sh ${root}\"); \n ?> \c" > ${root}/.webhook/${webhook}.php
                 echo "Done."
                 printf "Add this webhook to you Git service provider:yourdomain.com/.webhook/%s.php\n" $webhook
                 ;;
