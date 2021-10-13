@@ -23,7 +23,6 @@ RUN echo "Update source..." \
     && rm /etc/php/7.4/fpm/php.ini \
     && rm /etc/php/7.4/fpm/php-fpm.conf \
     && rm /etc/php/7.4/fpm/pool.d/www.conf \
-    && rm /var/www/html/index.nginx-debian.html \
     && echo -e "Done.\n" \
     && echo "Clean Cache..." \
     && apt clean -qq \
