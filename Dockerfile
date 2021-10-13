@@ -13,10 +13,12 @@ RUN echo -e "Install Nginx&PHP&cron...\n" \
     && echo "\n www ALL=(ALL)  NOPASSWORD:ALL" >> /etc/sudoers \
     && echo "Done.\n" \
     && echo "Modify the files..." \
+    && cp /var/www/html/index.nginx-debian.html /var/www/html/index.html \
     && rm /etc/nginx/nginx.conf \
     && rm /etc/php/7.4/fpm/php.ini \
     && rm /etc/php/7.4/fpm/php-fpm.conf \
     && rm /etc/php/7.4/fpm/pool.d/www.conf \
+    && rm /var/www/html/index.nginx-debian.html \
     && echo "Done.\n" \
     && echo "Clean Cache..." \
     && apt clean -qq \
