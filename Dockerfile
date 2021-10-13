@@ -1,10 +1,12 @@
 FROM ubuntu:20.04
-RUN echo "Install CA Certificates..." \
+RUN echo "Update source..." \
+    && apt update -qq \
+    && apt upgrade -y -qq \
+    && echo "Done.\n"
+    && echo "Install CA Certificates..." \
     && apt install ca-certificates -y -qq --no-install-recommends \
     && echo "Done.\n" \
     && echo "Install Nginx&PHP&cron..." \
-    && apt update -qq \
-    && apt upgrade -y -qq \
     && apt install nginx php7.4 php7.4-fpm php7.4-cgi php7.4-json php7.4-curl cron -y -qq --no-install-recommends \
     && echo "Done.\n" \
     && echo "Install Git.." \
