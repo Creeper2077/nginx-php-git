@@ -1,5 +1,6 @@
 FROM ubuntu:20.04
-RUN echo "Update source..." \
+RUN && echo "Update source..." \
+    && sed -i 's/archive.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list \
     && apt update -qq \
     && apt upgrade -y -qq \
     && echo "Done." \
@@ -29,10 +30,7 @@ RUN echo "Update source..." \
     && apt autoremove -qq \
     && echo "Done."
 ADD file.tar /
-RUN echo "Change Sources..." \
-    && /home/script/source.sh tuna \
-    && echo "Done." \
-    && echo "Setting permission..." \
+RUN echo "Setting permission..." \
     && chmod -R +x /home/script \
     && chmod -R 755 /var/www/html \
     && echo "Done."
