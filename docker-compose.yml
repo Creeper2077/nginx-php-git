@@ -1,7 +1,7 @@
 services:
   web:
-    image: "creeper2077/nginx-php-git:latest"
-    command: /home/script/start.sh GitURL webhook
+    image: "creeper2077/nginx-php-git:v0.1"
+    command: /home/script/start.sh domain GitURL webhook
     expose: 
      - "80"
     ports:
