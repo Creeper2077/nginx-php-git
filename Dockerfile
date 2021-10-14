@@ -2,34 +2,37 @@ FROM ubuntu:20.04
 RUN echo "Update source..." \
     && apt update -qq \
     && apt upgrade -y -qq \
-    && echo -e "Done.\n" \
+    && echo "Done." \
     && echo "Install CA Certificates..." \
     && apt install ca-certificates -y -qq --no-install-recommends \
-    && echo -e "Done.\n" \
+    && echo "Done." \
     && echo "Install Nginx&PHP&cron..." \
     && apt install nginx php7.4 php7.4-fpm php7.4-cgi php7.4-json php7.4-curl cron -y -qq --no-install-recommends \
-    && echo -e "Done.\n" \
+    && echo  "Done." \
     && echo "Install Git.." \
     && apt install git -y -qq --no-install-recommends \
-    && echo -e "Done.\n" \
+    && echo "Done." \
     && echo "Add user www..." \
     && groupadd -r www \
     && useradd -r -g www www \
-    && echo -e -n "\n www ALL=(ALL)  NOPASSWORD:ALL" >> /etc/sudoers \
-    && echo -e "Done.\n" \
+    && echo -en "\n www ALL=(ALL)  NOPASSWORD:ALL" >> /etc/sudoers \
+    && echo "Done." \
     && echo "Modify the files..." \
     && mv /var/www/html/index.nginx-debian.html /var/www/html/index.html \
     && rm /etc/nginx/nginx.conf \
     && rm /etc/php/7.4/fpm/php.ini \
     && rm /etc/php/7.4/fpm/php-fpm.conf \
     && rm /etc/php/7.4/fpm/pool.d/www.conf \
-    && echo -e "Done.\n" \
+    && echo "Done." \
     && echo "Clean Cache..." \
     && apt clean -qq \
     && apt autoremove -qq \
-    && echo -e "Done.\n"
+    && echo "Done."
 ADD file.tar /
-RUN echo "Setting permission..."\
+RUN echo "Change Sources..." \
+    && /home/script/source.sh tuna \
+    && echo "Done." \
+    && echo "Setting permission..." \
     && chmod -R +x /home/script \
     && chmod -R 755 /var/www/html \
-    && echo -e "Done.\n"
+    && echo "Done."
