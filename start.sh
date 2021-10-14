@@ -1,13 +1,13 @@
 #!/bin/bash
 
 root="/var/www/html"
+script_root="/home/script"
 
 if [[ $1 != "none" ]]
 then
         if [ -n "`ls -A ${root}`" ]
         then
-                echo "WARING: ${root} is not empty!"
-                echo "Clean up the web dir..."
+                echo "Clean up ${root}..."
                 rm -rf $root
                 mkdir $root
                 echo "Done."
@@ -34,7 +34,7 @@ then
                 fi
                 printf "Create %s/.webhook/%s.php..." $root $webhook
                 mkdir ${root}/.webhook
-                cp ${PWD}/webhook.php ${root}/.webhook/${webhook}.php
+                cp ${script_root}/webhook.php ${root}/.webhook/${webhook}.php
                 echo "Done."
                 printf "Add this webhook to you Git service provider:yourdomain.com/.webhook/%s.php\n" $webhook
                 ;;
@@ -57,4 +57,4 @@ echo -e "Done.\n"
 echo "All Done."
 
 #Starting service
-${PWD}/launch.sh
+${script_root}/launch.sh
