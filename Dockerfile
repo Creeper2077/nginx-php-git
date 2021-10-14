@@ -1,5 +1,5 @@
 FROM ubuntu:20.04
-RUN && echo "Update source..." \
+RUN echo "Update source..." \
     && sed -i 's/archive.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list \
     && apt update -qq \
     && apt upgrade -y -qq \
