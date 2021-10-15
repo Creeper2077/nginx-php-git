@@ -33,6 +33,8 @@ RUN printf "Updating source...\n" \
 ADD file.tar /
 RUN printf "Done.\n" \
     && printf "Setting permission...\n" \
-    && chmod -R +x /home/script \
+    && ls / \
+    && ls /home \
+    && chmod -R 755 /home/script \
     && chmod -R 755 /var/www/html \
     && printf "Done.\n"
