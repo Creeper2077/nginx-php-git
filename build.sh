@@ -5,7 +5,7 @@
 printf "Making tmp dir..\n"
 mkdir -p ./tmp/etc/nginx
 mkdir -p ./tmp/etc/php/7.4/fpm/pool.d
-mkdir -p ./tmp/home/scripts
+mkdir -p ./tmp/home/script
 mkdir -p ./tmp/var/www/html
 printf "Done.\n"
 
@@ -15,6 +15,7 @@ cp -f ./{additional,launch,start,update}.sh ./tmp/home/script
 cp -f ./nginx.conf ./tmp/etc/nginx/nginx.conf
 cp -f ./{php-fpm.conf,php.ini} ./tmp/etc/php/7.4/fpm
 cp -f ./www.conf ./tmp/etc/php/7.4/fpm/pool.d
+cp -f ./info.php ./tmp/var/www/html
 printf "Done.\n"
 
 #Create tar file
