@@ -29,10 +29,10 @@ RUN printf "Updating source...\n" \
     && apt clean -qq \
     && apt autoremove -qq \
     && printf "Done.\n" \
-    %% printf "Adding files...\n"
+    && printf "Adding files...\n"
 ADD file.tar /
 RUN printf "Done.\n" \
-    printf "Setting permission...\n" \
+    && printf "Setting permission...\n" \
     && chmod -R +x /home/script \
     && chmod -R 755 /var/www/html \
     && printf "Done.\n"

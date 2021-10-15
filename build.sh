@@ -12,7 +12,7 @@ printf "Done.\n"
 #Copy files
 printf "Copying file...\n"
 cp -f ./{additional,launch,start,update}.sh ./tmp/home/script
-cp -f ./nginx.conf ./tmp/etc/nginx/nginx.conf
+cp -f ./nginx.conf ./tmp/etc/nginx
 cp -f ./{php-fpm.conf,php.ini} ./tmp/etc/php/7.4/fpm
 cp -f ./www.conf ./tmp/etc/php/7.4/fpm/pool.d
 cp -f ./info.php ./tmp/var/www/html
