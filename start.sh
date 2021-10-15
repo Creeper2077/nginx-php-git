@@ -1,32 +1,34 @@
 #!/bin/bash
+#Initialization
 
 root="/var/www/html"
-script_root="/home/script"
 
 #Set server name
-$script_root/servername.sh
+printf "Set server name..."
+sed -i 's/@SERVERNAME_HERE@/${1}/g' /etc/nginx/nginx.conf
+printf "Done."
 
 if [[ $2 != "none" ]]
 then
         if [ -n "`ls -A ${root}`" ]
         then
-                echo "Clean up ${root}..."
+                printf "Clean up %s...\n" $root
                 rm -rf $root
                 mkdir $root
-                echo "Done."
+                printf "Done.\n"
         fi
         #clone the repo
-        printf "Start clone from Git repo..."
+        printf "Start clone from Git repo...\n"
         printf "GitURL: %s\n" $2
         git clone $2 $root --depth 1
         printf "Done.\n"
         #Configure automatic updates
         case "$3" in
         "timing") #Create timed script
-                echo "Update /etc/crontab..."
+                printf "Update /etc/crontab...\n"
                 timing=echo ${@:4}
                 echo "${timing} /home/script/update.sh ${root}" >> /etc/crontab
-                echo "Done."
+                printf "Done.\n"
                 ;;
         "webhook") #Create webhook
                 if [[ $4 ]]
@@ -35,29 +37,31 @@ then
                 else
                         webhook=$(cat /proc/sys/kernel/random/uuid)
                 fi
-                printf "Create %s/.webhook/%s.php..." $root $webhook
+                printf "Create %s/.webhook/%s.php...\n" $root $webhook
                 mkdir ${root}/.webhook
-                cp ${script_root}/webhook.php ${root}/.webhook/${webhook}.php
-                echo "Done."
+                cp ./webhook.php ${root}/.webhook/${webhook}.php
+                printf "Done.\n"
                 printf "Add this webhook to you Git service provider:yourdomain.com/.webhook/%s.php\n" $webhook
                 ;;
-        *)      echo "The repo will never update."
+        *)      printf "The repo will never update.\n"
                 ;;
 esac
 else
-        echo "Skip clone file."
+        printf "Skip clone file.\n"
 fi
 
 #Run additional scripts
-echo "Run additional scripts..."
+printf "Run additional scripts...\n"
+./additional.sh
+printf "Done.\n"
 
 #Set permissions
-echo "Set permissions..."
+printf "Set permissions...\n"
 chmod -R 755 $root
-echo -e "Done.\n"
+printf "Done.\n"
 
 #All Done
-echo "All Done."
+printf "All Done.\n"
 
 #Starting service
-${script_root}/launch.sh
+./launch.sh

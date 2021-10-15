@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/bin/sh
+#Update the Git repo
   
 root = "/var/www/html"
 cd $root
@@ -9,9 +10,10 @@ printf "Local commit:%s\n" $local_commit
 printf  "Origin commir:%s\n" $origin_commit
 if [$local_commit != $origin_commit]
 then    
-    echo "Pull from remote!\n"
+    printf "Pull from remote!\n"
     git pull --depth 1
     chmod -R 755 $root
+    printf "Done.\n"
 else
-    echo "Already to date!"
+    printf "Already to date!\n"
 fi

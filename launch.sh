@@ -1,13 +1,16 @@
+#!/bin/sh
+#Start the service
+
 #Start cron
-echo "Starting cron..."
+printf "Starting cron...\n"
 service cron start
-echo -e "Done.\n"
+printf "Done.\n"
 
 #start PHP
-echo "Starting PHP-fpm..."
+printf "Starting PHP-fpm...\n"
 service php7.4-fpm start
-echo -e "Done.\n"
+printf "Done.\n"
 
 #Start nginx
-echo "Starting nginx..."
+printf "Starting nginx...\n"
 service nginx start

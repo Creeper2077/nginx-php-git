@@ -1,36 +1,38 @@
 FROM ubuntu:20.04
-RUN echo "Update source..." \
+RUN printf "Updating source...\n" \
     && sed -i 's/archive.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list \
     && apt update -qq \
     && apt upgrade -y -qq \
-    && echo "Done." \
-    && echo "Install CA Certificates..." \
+    && printf "Done.\n" \
+    && printf "Installing CA Certificates...\n" \
     && apt install ca-certificates -y -qq --no-install-recommends \
-    && echo "Done." \
-    && echo "Install Nginx&PHP&cron..." \
+    && printf "Done.\n" \
+    && printf "Installing Nginx&PHP&cron...\n" \
     && apt install nginx php7.4 php7.4-fpm php7.4-cgi php7.4-json php7.4-curl cron -y -qq --no-install-recommends \
-    && echo  "Done." \
-    && echo "Install Git.." \
+    && printf  "Done.\n" \
+    && printf "Installing Git...\n" \
     && apt install git -y -qq --no-install-recommends \
-    && echo "Done." \
-    && echo "Add user www..." \
+    && printf "Done.\n" \
+    && printf "Adding user www...\n" \
     && groupadd -r www \
     && useradd -r -g www www \
     && echo -en "\n www ALL=(ALL)  NOPASSWORD:ALL" >> /etc/sudoers \
-    && echo "Done." \
-    && echo "Modify the files..." \
+    && printf "Done.\n" \
+    && printf "Modifing the files...\n" \
     && mv /var/www/html/index.nginx-debian.html /var/www/html/index.html \
     && rm /etc/nginx/nginx.conf \
     && rm /etc/php/7.4/fpm/php.ini \
     && rm /etc/php/7.4/fpm/php-fpm.conf \
     && rm /etc/php/7.4/fpm/pool.d/www.conf \
-    && echo "Done." \
-    && echo "Clean Cache..." \
+    && printf "Done.\n" \
+    && printf "Cleaning Cache...\n" \
     && apt clean -qq \
     && apt autoremove -qq \
-    && echo "Done."
+    && printf "Done.\n" \
+    %% printf "Adding files...\n"
 ADD file.tar /
-RUN echo "Setting permission..." \
+RUN printf "Done.\n" \
+    printf "Setting permission...\n" \
     && chmod -R +x /home/script \
     && chmod -R 755 /var/www/html \
-    && echo "Done."
+    && printf "Done.\n"
