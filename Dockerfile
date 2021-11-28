@@ -1,6 +1,7 @@
 FROM ubuntu:20.04
 RUN printf "Updating source...\n" \
     && sed -i 's/archive.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list \
+    && sed -i 's/security.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list \
     && apt update -qq \
     && apt upgrade -y -qq \
     && printf "Done.\n" \
